@@ -111,8 +111,8 @@ def post_prop(request):
             Phone: {phone}
             Wants to get it featured?? {paid}
             ''',
-            'no_reply@sajilorealestate.com',
-            to=['hi@sajilorealestate.com', ],
+            'from',
+            to=['to', ],
             reply_to=[f'{added_by.email}', ],
         )
         email.send(fail_silently=False)
@@ -159,8 +159,8 @@ def inquiry(request):
             Phone: {phone}
             Message: {message}
             ''',
-            'no_reply@sajilorealestate.com',
-            to=['awebisam@gmail.com', ],
+            'from',
+            to=['to', ],
             reply_to=[f'{email}', ],
         )
         try:
@@ -208,8 +208,8 @@ def contact(request):
             Phone: {phone}
             Message: {message}
             ''',
-            'no_reply@sajilorealestate.com',
-            to=['hi@sajilorealestate.com', ],
+            'from',
+            to=['to', ],
             reply_to=[f'{email}', ],
         )
         try:

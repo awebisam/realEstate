@@ -97,7 +97,7 @@ class Inquiry(models.Model):
 
 
 class StaticSiteData(models.Model):
-    name = "Sajilo Real Estate"
+    name = "Real Estate"
     phone = models.CharField(max_length=20, null=True)
     email = models.EmailField(max_length=254)
     twitter = models.URLField(max_length=200, blank=True)
