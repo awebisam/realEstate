@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Welcome
+{% endblock title %}
+{% block content %}
+
+{% include 'auth/alert.html' %}
+<!-- Fixed Banner Part Start -->
+<section id="slider-fixed" class="full_row bg_img_4 py_80 overlay_1">
+	<div class="vertical_center w-100">
+		<div class="container">
+			<div class="slider-search-2">
+				<h3 class="title text_white">Find Your Dream Home</h3>
+				<div class="property_search_form p-4 mt_30 bg_white">
+					<form action="{% url 'core_app:search' %}" method="post" class="property_filter_input">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-lg-2 col-sm-6">
+								<select name="status" class="selectpicker form-control">
+									<option>Any Status</option>
+									<option>Rent</option>
+									<option>Sale</option>
+								</select>
+							</div>
+							<div class="col-lg-2 col-sm-6">
+								<select name="type" class="selectpicker form-control">
+									<option>Any Type</option>
+									<option>Land</option>
+									<option>House</option>
+									<option>Room</option>
+								</select>
+							</div>
+							<div class="col-lg-5 col-sm-8">
+								<input class="form-control" name="address" type="search" placeholder="Search by city">
+							</div>
+							<div class="col-lg-3 col-sm-4">
+								<input type="submit" name="search" value="Search" class="btn btn_primary">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Slider Part End -->
+
+<!-- Offer Part Start -->
+<section class="full_row pt_80 bg_white">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-3 col-lg-3 col-sm-6">
+				<div class="offer_item_2 mb_30 text-center wow fadeInLeft" data-wow-delay="200ms"
+					data-wow-duration="1000ms">
+					<div class="icon_large icon mb-2"><i class="flaticon-home-1"></i>
+					</div>
+					<h5 class="title py-3"><a>Verified</a></h5>
+					<p>We don't let unethical and suspicious listings. All properties are manually verified.
+					</p>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-sm-6">
+				<div class="offer_item_2 mb_30 text-center wow fadeInLeft" data-wow-delay="100ms"
+					data-wow-duration="1000ms">
+					<div class="icon_large icon mb-2"><i class="flaticon-handshake"></i>
+					</div>
+					<h5 class="title py-3"><a>No hassle</a></h5>
+					<p>After buyers approach us, we send them over to the sellers. It's hassle free.</p>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-sm-6">
+				<div class="offer_item_2 mb_30 text-center wow fadeInRight" data-wow-delay="100ms"
+					data-wow-duration="1000ms">
+					<div class="icon_large icon mb-2"><i class="flaticon-chat"></i>
+					</div>
+					<h5 class="title py-3"><a>No spam</a></h5>
+					<p>We restrict spammers so, we only provide contact details to legit buyers.</p>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-3 col-sm-6">
+				<div class="offer_item_2 mb_30 text-center wow fadeInRight" data-wow-delay="200ms"
+					data-wow-duration="1000ms">
+					<div class="icon_large icon mb-2"><i class="flaticon-export"></i>
+					</div>
+					<h5 class="title py-3"><a>No worries</a></h5>
+					<p>Once you post your listing, you needn't worry. We'll take care the rest.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Offer Part End -->
+
+<!-- Property Tab Start -->
+{% if latest %}
+<section class="full_row py_80 bg_gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title_row text-center mb-5">
+					<h3 class="title mb-4">Featured <span class="text_primary">Properties</span></h3>
+					<div class="sub_title text_secondary">
+						<p>Have a look at some of our featured properties.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="gallery-section">
+					<div class="auto-container">
+						<div class="row filter-list clearfix">
+
+							{% for s in latest %}
+							<div class="column mix mix_all house appartment col-lg-4 col-md-6">
+								<div class="property_grid_1 property_item bg-white mb_30">
+									<div class="zoom_effect_1">
+										<div class="upper_1 bg_secondary text-white">{{s.status}}</div>
+										{% if s.paid %}<div class="upper_2 bg_primary text-white">Featured</div>
+										{% endif %}
+										<a href="{% url 'core_app:property' slug=s.slug %}"><img src="{{s.photo.url}}"
+												alt="Image Not Found!"></a>
+										<div class="upper_3 text_secondary">{{s.timestamp | date}}</div>
+									</div>
+									<div class="property_text p-3">
+										<h5 class="title"><a
+												href="{% url 'core_app:property' slug=s.slug %}">{{s.title}}</a>
+										</h5>
+										<span class="my-3 d-block"><i class="fas fa-map-marker-alt"></i> {{s.address}}
+										</span>
+										<div class="quantity">
+											<ul>
+												<li><span>Area</span>{{s.area}}</li>
+												<li><span>Rooms</span>{{s.number_of_rooms}}</li>
+												<li><span>Insurance</span>{% if s.has_insurance %}<i
+														class="fa fa-check"></i>{% else %}<i
+														class="fa fa-window-close"></i>{% endif %}</li>
+												<li><span>Installment</span>{% if s.has_installment %}<i
+														class="fa fa-check"></i>{% else %}<i
+														class="fa fa-window-close"></i>{% endif %}</li>
+											</ul>
+										</div>
+									</div>
+									<div class="bed_area d-table w-100">
+										<ul>
+											<li>Rs {{s.price}}{% if "Rent" in s.status %}/mo{% endif %}</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+
+						</div>
+						<!-- End tab content -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+<!-- Property Tab End -->
+
+<!-- Service Section Start -->
+<section class="full_row py_80 bg_gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title_row text-center mb-5">
+					<h3 class="title mb-4">What you are looking for?</h3>
+					<div class="sub_title text_secondary">
+						<p>We have various kinds of listings for various purposes.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-sm-4">
+				<div class="service_item_1 text-center mb_30 bg_gray wow fadeInUp" data-wow-delay="100ms"
+					data-wow-duration="1500ms">
+					<div class="icon_large icon"><i class="glyph-icon flaticon-home"></i>
+					</div>
+					<form id="home" action="{% url 'core_app:list' %}" method="post">
+						{% csrf_token %}
+						<input type="text" hidden name="type" value="House">
+					</form>
+					<a href="javascript:s('home')">
+						<h4 class="py-3 title">Houses</h4>
+					</a>
+
+					<p></p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-sm-4">
+				<div class="service_item_1 text-center mb_30 bg_gray wow fadeInUp" data-wow-delay="200ms"
+					data-wow-duration="1500ms">
+					<div class="icon_large icon"><i class="glyph-icon flaticon-signs"></i>
+					</div>
+					<form id="land" action="{% url 'core_app:list' %}" method="post">
+						{% csrf_token %}
+						<input type="text" hidden name="type" value="Land">
+					</form>
+					<a href="javascript:s('land')">
+						<h4 class="py-3 title">Lands</h4>
+					</a>
+
+					<p></p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-sm-4">
+				<div class="service_item_1 text-center mb_30 bg_gray wow fadeInUp" data-wow-delay="300ms"
+					data-wow-duration="1500ms">
+					<div class="icon_large icon"><i class="glyph-icon flaticon-notification"></i>
+					</div>
+					<form id="room" action="{% url 'core_app:list' %}" method="post">
+						{% csrf_token %}
+						<input type="text" hidden name="type" value="Room">
+					</form>
+					<a href="javascript:s('room')">
+						<h4 class="py-3 title">Rooms</h4>
+					</a>
+					<script>
+						function s(x) {
+							document.getElementById(x).submit();
+						}
+					</script>
+					<p></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Service Section End -->
+
+<!-- info Banner -->
+<section class="full_row py_80 overlay_1 bg_img_3">
+	<div class="container">
+		<div class="row">
+			<div class="banner_1 text-center">
+				<span class="text_white">Do you want to sell your property ?</span>
+				<h2 class="title text_white my-4 text-capitalize">We help you to find a best customer for your property
+				</h2>
+				<a class="btn btn_primary" href="{% url 'core_app:post' %}">Submit Property</a>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- info Banner End -->
+{% if blogs %}
+
+<!-- Recent News Section Start -->
+<section class="full_row py_80 bg_gray">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title_row text-center mb-5">
+					<h3 class="title mb-4">Recent <span class="text_primary">News</span></h3>
+					<div class="sub_title text_secondary">
+						<p>Read our latest blogs.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			{% for b in blogs %}
+
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<div class="news_item_1 bg_white mb_30 wow fadeInUp" data-wow-delay="100ms" data-wow-duration="1000ms">
+					<div class="news_img"> <img src="{{b.image.url}}" alt="Image Not Found!"> <a
+							href="{% url 'blog:detail' slug=b.slug %}" class="news_eye"><i class="far fa-eye"></i></a>
+					</div>
+					<div class="details p_20">
+						<h5 class="title mb-2"><a href="{% url 'blog:detail' slug=b.slug %}">{{b.title}}</a>
+						</h5>
+						<div class="post_info">Posted By {{b.author}} On {{b.created_on | date}}</div>
+						<p>{{b.body | truncatewords:5 | safe }}</p>
+						<a class="btn_link" href="{% url 'blog:detail' slug=b.slug %}">Read More</a>
+					</div>
+				</div>
+			</div>
+
+			{% endfor %}
+
+		</div>
+	</div>
+</section>
+{% endif %}
+<!-- Recent News Section End -->
+
+{% endblock content %}

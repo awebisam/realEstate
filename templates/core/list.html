@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Properties
+{% endblock title %}
+{% block content %}
+<!-- Banner Section Start -->
+<section class="full_row bg_img_5 py_80 overlay_1 page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_banner">
+                    <h3 class="title text_white d-table float-left">Properties</h3>
+                    <ul class="page_location float-right">
+                        <li><a href="{% url 'core_app:index' %}">Home</a>
+                        </li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </li>
+                        <li><span>Properties</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+<!-- Find Part Satrt -->
+<div class="full_row py_80 bg_white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="property_search_form">
+                    <form action="" method="post" class="property_filter_input">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <select name="status" class="selectpicker form-control">
+                                        <option>Any Status</option>
+                                        <option {% if "Rent" in status %}selected{% endif %}>Rent</option>
+                                        <option {% if "Sale" in status %}selected{% endif %}>Sale</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <select name="type" class="selectpicker form-control">
+                                        <option>Any Type</option>
+                                        <option {% if "House" in ptype %}selected{% endif %}>House</option>
+                                        <option {% if "Room" in ptype %}selected{% endif %}>Room</option>
+                                        <option {% if "Land" in ptype %}selected{% endif %}>Land</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-6">
+                                <div class="form-group">
+                                    <input type="search" value="{{address}}" name="address" placeholder="Search by city"
+                                        class="form-control search_property">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="number" value="{{maxprice}}" class="form-control" name="maxprice"
+                                        placeholder="Max Price (Rs.)">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="submit" name="search" class="btn btn_primary" value="Search">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Find Part End -->
+
+<!-- Property List Start -->
+<section class="full_row py_80 bg_gray">
+    <div class="container">
+        <!-- Property Grid Start -->
+        <div class="row">
+            {% for s in listings %}
+            <div class="column mix mix_all house appartment col-lg-4 col-md-6">
+                <div class="property_grid_1 property_item bg-white mb_30">
+                    <div class="zoom_effect_1">
+                        <div class="upper_1 bg_secondary text-white">{{s.status}}</div>
+                        {% if s.paid %}<div class="upper_2 bg_primary text-white">Featured</div>
+                        {% endif %}
+                        <a href="{% url 'core_app:property' slug=s.slug %}"><img src="{{s.photo.url}}"
+                                alt="Image Not Found!"></a>
+                        <div class="upper_3 text_secondary">{{s.timestamp | date}}</div>
+                    </div>
+                    <div class="property_text p-3">
+                        <h5 class="title"><a href="{% url 'core_app:property' slug=s.slug %}">{{s.title}}</a>
+                        </h5>
+                        <span class="my-3 d-block"><i class="fas fa-map-marker-alt"></i> {{s.address}}
+                        </span>
+                        <div class="quantity">
+                            <ul>
+                                <li><span>Area</span>{{s.area}}</li>
+                                <li><span>Rooms</span>{{s.number_of_rooms}}</li>
+                                <li><span>Insurance</span>{% if s.has_insurance %}<i
+                                        class="fa fa-check"></i>{% else %}<i class="fa fa-window-close"></i>{% endif %}
+                                </li>
+                                <li><span>Installment</span>{% if s.has_installment %}<i
+                                        class="fa fa-check"></i>{% else %}<i class="fa fa-window-close"></i>{% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bed_area d-table w-100">
+                        <ul>
+                            <li>Rs {{s.price}}{% if "Rent" in s.status %}/mo{% endif %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% if listings.has_other_pages %}
+
+                <div class="pagination_style1">
+                    <nav aria-label="page navigation">
+                        <ul class="pagination">
+                            {% if listings.has_previous %}
+                            <li><a href="?page={{listings.previous_page_number}}" aria-label="Previous"> <span
+                                        aria-hidden="true">Prev</span> </a> </li>
+                            {% else %}
+                            <li><a><span aria-hidden="true">Prev</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% for i in listings.paginator.page_range %}
+                            {% if listings.number == i %}
+                            <li>
+                                <a>{{i}}</a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="?page={{i}}">{{i}}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if listings.has_next %}
+                            <li><a href="?page={{listings.next_page_number}}" aria-label="Previous"> <span
+                                        aria-hidden="true">Next</span> </a> </li>
+                            {% else %}
+                            <li><a><span aria-hidden="true">Next</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

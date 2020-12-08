@@ -1,0 +1,33 @@
+{% load static %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{% if 'blog' in request.path or property in request.path %}
+
+<meta name="title" property="og:title" content="{{p.title}} ">
+<meta name="author" content="Sajilo RealEstate">
+<meta name="description" property="og:description" content="{{ p.seodescription }}">
+<meta property="og:image" content="{{ p.photo.url }}">
+
+{% else %}
+
+<meta name="title" content="Sajilo Real Estate">
+<meta name="author" content="Awebisam">
+<meta name="description" property="og:description"
+    content="Real estate website for posting and exploring houses, rooms and land for sale or rent. Sign up today and be eligible for our services.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sajilo Real Estate">
+<meta property="og:description"
+    content="Real estate website for posting and exploring houses, rooms and land for sale or rent. Sign up today and be eligible for our services.">
+<meta property="og:image" content="{% static 'img/seo.png' %}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Sajilo Real Estate">
+<meta property="twitter:description"
+    content="Real estate website for posting and exploring houses, rooms and land for sale or rent. Sign up today and be eligible for our services.">
+<meta property="twitter:image" content="{% static 'img/seo.png' %}">
+{% endif %}

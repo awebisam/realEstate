@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{b.title}}
+{% endblock title %}
+{% block content %}
+
+<!-- Banner Section Start -->
+<section class="full_row bg_img_5 py_80 overlay_1 page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_banner">
+                    <h3 class="title text_white d-table float-left">{{b.title}}</h3>
+                    <ul class="page_location float-right">
+                        <li><a href="{% url 'core_app:index' %}">Home</a>
+                        </li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </li>
+                        <li><a href="{% url 'blog:list' %}">Blogs</a>
+                        </li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </li>
+                        <li><span>{{b.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+
+<!-- Blog List Start -->
+<section class="full_row py_80 bg_gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="{{b.image.url}}" alt="Image not found!">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="single_blog_detail p_20">
+                            <div class="head mb-4">
+                                <h4 class="title mb-2">{{b.title}}</h4>
+                                <div class="post-info">
+                                    <span>posted by <a href="#">{{b.author}}</a> Created On
+                                        {{b.created_on|date}} and Updated On {{b.updated_on|date}}</span>
+                                </div>
+                                {{b.body | safe}}
+                                <div class="socail_media_1 my-5 type_2">
+                                    <ul>
+                                        <li><span>share this post in your media: </span></li>
+                                        <li><a
+                                                href="https://www.facebook.com/sharer.php?href={{request.build_absolute_uri}}"><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li><a
+                                                href="https://twitter.com/intent/tweet?url={{request.build_absolute_uri}}"><i
+                                                    class="fab fa-twitter"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

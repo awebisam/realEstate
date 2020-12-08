@@ -1,0 +1,66 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 23/09/2017 06:12
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("Flaticon.eot");
+  src: url("Flaticond41d.html?#iefix") format("embedded-opentype"),
+       url("Flaticon.woff") format("woff"),
+       url("Flaticon.html") format("truetype"),
+       url("Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-warehouse:before { content: "\f100"; }
+.flaticon-shop:before { content: "\f101"; }
+.flaticon-pin-a-property-for-buy-or-rent:before { content: "\f102"; }
+.flaticon-share:before { content: "\f103"; }
+.flaticon-upload:before { content: "\f104"; }
+.flaticon-like:before { content: "\f105"; }
+.flaticon-star:before { content: "\f106"; }
+.flaticon-settings:before { content: "\f107"; }
+.flaticon-notification:before { content: "\f108"; }
+.flaticon-user:before { content: "\f109"; }
+.flaticon-locked:before { content: "\f10a"; }
+.flaticon-signs:before { content: "\f10b"; }
+.flaticon-buildings:before { content: "\f10c"; }
+.flaticon-pencil-and-paper:before { content: "\f10d"; }
+.flaticon-truck-transport-with-construction-materials:before { content: "\f10e"; }
+.flaticon-rent-hanging-signal:before { content: "\f10f"; }
+.flaticon-law-office:before { content: "\f110"; }
+.flaticon-house-for-sale:before { content: "\f111"; }
+.flaticon-monument:before { content: "\f112"; }
+.flaticon-tool-1:before { content: "\f113"; }
+.flaticon-tool:before { content: "\f114"; }
+.flaticon-map-marker:before { content: "\f115"; }
+.flaticon-bed:before { content: "\f116"; }
+.flaticon-home-1:before { content: "\f117"; }
+.flaticon-handshake:before { content: "\f118"; }
+.flaticon-invoice:before { content: "\f119"; }
+.flaticon-home:before { content: "\f11a"; }
+.flaticon-paint-brush:before { content: "\f11b"; }
+.flaticon-export:before { content: "\f11c"; }
+.flaticon-chat:before { content: "\f11d"; }
+.flaticon-paintbrush:before { content: "\f11e"; }
+.flaticon-multimedia:before { content: "\f11f"; }
+.flaticon-city:before { content: "\f120"; }
+.flaticon-connections:before { content: "\f121"; }
+.flaticon-office:before { content: "\f122"; }

@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{p.title}}
+{% endblock title %}
+
+{% block content %}
+
+<section class="full_row bg_img_5 py_80 overlay_1 page-banner" style="margin-top: 125.874px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_banner">
+                    <h3 class="title text_white d-table float-left">{{p.title}}</h3>
+                    <ul class="page_location float-right">
+                        <li><a href="{% url 'core_app:index' %}">Home</a>
+                        </li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </li>
+                        <li><span>{{p.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'auth/alert.html' %}
+
+<section class="full_row pt_80 bg_gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="property_slider">
+                            <img src="{{p.photo.url}}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single_property_detail">
+                            <div class="head">
+                                <h4 class="title mt-4">{{p.title}}</h4>
+                                <span class=""><i class="fas fa-map-marker-alt"></i> {{p.address}} </span>
+                            </div>
+                            {{p.description}}<br />
+                            <div class="more_information my-5 d-inline-block">
+                                <h4 class="inner-title mb-4">More Information</h4>
+                                <ul>
+                                    <li><span>Posted :</span> {{p.timestamp | date}}</li>
+                                    <li><span>Type :</span> {{p.ptype}}</li>
+                                    <li><span>Price :</span>Rs. {{p.price}} {% if p.status == "Rent" %}per
+                                        month{% endif %}
+                                    </li>
+                                    <li><span>Installment Facility :</span> {{p.has_installment | yesno | capfirst}}
+                                    </li>
+                                    <li><span>Insurance :</span> {{p.has_insurance |yesno |capfirst}}</li>
+                                    <li><span>Area :</span> {{p.area}}</li>
+                                    {% if p.video %}<li><span>Video :</span> <a target="blank" class="text-info"
+                                            href="{{p.video}}">Click Here</a>{% endif %}
+                                </ul>
+                            </div>
+
+                            <div class="single_feature mb-5">
+                                <h4 class="inner-title mb-4">Features</h4>
+
+                                <ul>
+                                    <li><i class="text-success fa fa-check"></i> Verified</li>
+                                    {% if p.garage %}<li><i class="text-success fa fa-check"></i> Garage</li>
+                                    {% endif %}
+                                    {% if p.swimming_pool %}<li><i class="text-success fa fa-check"></i> Pool</li>
+                                    {% endif %}
+                                    {% if p.bathtub %}<li><i class="text-success fa fa-check"></i> Bathtub</li>
+                                    {% endif %}
+                                    {% if p.ac %}<li><i class="text-success fa fa-check"></i> A.C</li>{% endif %}
+                                    {% if p.internet %}<li><i class="text-success fa fa-check"></i> Internet</li>
+                                    {% endif %}
+                                    {% if p.play_ground %}<li><i class="text-success fa fa-check"></i> Play Ground</li>
+                                    {% endif %}
+                                </ul>
+
+
+                            </div>
+                            <div class="single_feature mb-5">
+                                <h4 class="inner-title mb-4">Share</h4>
+
+                                <a href="https://www.facebook.com/sharer.php?href={{request.build_absolute_uri}}">
+                                    <i class="fab fa-facebook-f"></i></a> &nbsp;&nbsp;
+                                <a href="https://twitter.com/intent/tweet?url={{request.build_absolute_uri}}"><i
+                                        class="fab fa-twitter"></i></a>
+
+                            </div>
+
+                            <div class="mb-5 star_rating">
+                                <h4 class="inner-title mb-4">Send a message</h4>
+                                <form action="{% url 'core_app:inquiry' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <input hidden class="form-control" type="text" name="property"
+                                                    value="{{p.id}}">
+                                                <input hidden class="form-control" type="text" name="path"
+                                                    value="{{request.path}}">
+                                                {% if user.is_authenticated %}<input class="form-control" type="text"
+                                                    name="name" {% if user.is_authenticated %} disabled
+                                                    value="You are logged in as {{user}}" {% endif %}
+                                                    placeholder="Your Name">{% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="name"
+                                                    {% if user.is_authenticated %} hidden
+                                                    value="{{user.first_name}} {{user.last_name}}" {% endif %}
+                                                    placeholder="Your Name">
+                                                {% if user.is_authenticated %}<input hidden type="text" name="user"
+                                                    value="{{user}}">{% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="email"
+                                                    {% if user.is_authenticated %} hidden value="{{user.email}}"
+                                                    {% endif %} placeholder="Your Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="phone"
+                                                    placeholder="Your Phone Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <textarea rows="5" class="form-control resize_none" name="message"
+                                                    placeholder="Your Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <input id="send" class="btn btn_primary" value="Send" type="submit">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="property_sidebar mt_md_50">
+
+                    <div class="property_listing sidebar-widget">
+                        <h4 class="widget-title mb-4">Property Summary</h4>
+                        <ul>
+                            <li><span>Listing Type :</span> For {{p.status}}</li>
+                            <li><span>Property Type :</span> {{p.ptype}}</li>
+                            <li><span>Price :</span> Rs. {{p.price}} {% if p.status == "Rent" %}per
+                                month{% endif %}</li>
+                            <li><span>Area :</span> {{p.area}}</li>
+                            {% if p.video %}<li><span>Video :</span> <a class="text_secondary"
+                                    href="{{p.video}}">Here</a>
+                            </li>{% endif %}
+                        </ul>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

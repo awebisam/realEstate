@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+	<title>Sajilo Real Estate | {% block title %}
+		{% endblock title %}</title>
+	{% include 'plugins/meta.html' %}
+	{% include 'plugins/stylesheet.html' %}
+</head>
+
+<body class="page-load">
+	<div class="preloader">
+		<div class="loading-page">
+			<div class="sk-circle">
+				<div class="sk-circle1 sk-child"></div>
+				<div class="sk-circle2 sk-child"></div>
+				<div class="sk-circle3 sk-child"></div>
+				<div class="sk-circle4 sk-child"></div>
+				<div class="sk-circle5 sk-child"></div>
+				<div class="sk-circle6 sk-child"></div>
+				<div class="sk-circle7 sk-child"></div>
+				<div class="sk-circle8 sk-child"></div>
+				<div class="sk-circle9 sk-child"></div>
+				<div class="sk-circle10 sk-child"></div>
+				<div class="sk-circle11 sk-child"></div>
+				<div class="sk-circle12 sk-child"></div>
+			</div>
+		</div>
+	</div>
+
+	{% comment %} NAV {% endcomment %}
+	<!-- Wrapper Start -->
+	<div id="page_wrapper" class="container-fluid">
+		<div class="row">
+			<header id="header" class="w-100 bg_white nav-on-top">
+				<!-- Top Header Start -->
+				<div class="top_header_1 bg_secondary">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6 col-sm-5">
+								<div class="top_left"> <a
+										href="callto:++977{% for s in site %}{{s.phone}}{% endfor %}"><i
+											class="fa fa-phone" aria-hidden="true"></i> Need Support ? +977
+										{% for s in site %}{{s.phone}}{% endfor %}</a>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-7">
+								<div class="top_right dropdown_1 d-flex float-right">
+									<ul class="registration">
+										{% if user.is_authenticated %}
+										<li><a disabled class="toogle_btn">Hey, {{user.username}}</a></li>
+										<li><a href="{% url 'authentication:logout' %}" class="toogle_btn">Logout</a>
+										</li>
+										{% else %}
+										<li><a href="{% url 'authentication:register' %}"
+												class="toogle_btn">Register</a></li>
+										<li><a href="{% url 'authentication:login' %}" class="toogle_btn">Login</a></li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Top Header End -->
+
+				<!-- Nav Header Start -->
+				<div class="main_header_1">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 col-sm-12">
+								<nav class="navbar navbar-expand-lg navbar-light w-100">
+									<a class="navbar-brand" href="{% url 'core_app:index' %}">
+										<img class="nav-logo" src="{% static 'img/logo1.png' %}" alt="logo"></a>
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+										data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+										aria-expanded="false" aria-label="Toggle navigation">
+										<span class="navbar-toggler-icon"></span>
+									</button>
+									<div class="collapse navbar-collapse" id="navbarSupportedContent">
+										<ul class="navbar-nav ml-auto">
+											<li class="nav-item">
+												<a class="nav-link" href="{% url 'core_app:index' %}"
+													role="button">Home</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="{% url 'core_app:list' %}"
+													role="button">{% if ptype %}All Properties
+													{% else %}Properties{% endif %}</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="{% url 'blog:list' %}" role="button">Blog</a>
+											</li>
+											{% if user.is_authenticated %}
+											<li class="nav-item"> <a class="nav-link"
+													href="{% url 'core_app:queries' %}">My Queries</a>
+											</li>
+											{% endif %}
+											<li class="nav-item">
+												<div class="nav-link">
+													<a class="btn btn_primary_bg" href="{% url 'core_app:post' %}">Post
+														Property</a>
+												</div>
+											</li>
+										</ul>
+
+
+
+									</div>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Nav Header End -->
+			</header>
+
+
+
+			{% comment %} Main {% endcomment %}
+			{% block content %}
+			{% endblock content %}
+			{% comment %} EndMain {% endcomment %}
+
+
+			{% if not user.is_authenticated %}
+			<!-- Register Section Start -->
+			<section class="full_row py-5 bg_primary">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="reg_banner">
+								<h4 class="title mb-2">Are you looking to buy or sell property?
+								</h4>
+								<span class="text_white">Click the button and join us. We assure you that we will be
+									your best agent.</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="float-right">
+								<a href="{% url 'authentication:register' %}" class="btn btn_default">Register Now</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Register Section End -->
+			{% endif %}
+
+
+			<!-- Footer Section Start -->
+			<section class="full_row py_80 bg_secondary">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer_widget company_info">
+								<div class="widget_head"><a href="index_1.html"><img class="logo-bottom"
+											src="{% static 'img/logo2.png' %}" alt=""></a></div>
+								<p>Real estate website for posting and exploring houses, rooms and land for sale or
+									rent.</p>
+								<div class="socail_media_1 mt-3">
+									<ul>
+										{% for s in site %}
+										{% if s.facebook %}
+										<li><a href="{{s.facebook}}"><i class="fab fa-facebook-f"></i></a>
+										</li>
+										{% endif %}
+										{% if s.twitter %}
+										<li><a href="{{s.twitter}}"><i class="fab fa-twitter"></i></a>
+										</li>
+										{% endif %}
+										{% if s.linkedin %}
+										<li><a href="{{s.linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+										</li>
+										{% endif %}
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer_widget get_in_touch">
+								<div class="widget_head">
+									<h4 class="widget_title">Get In Touch</h4>
+								</div>
+								<ul>
+
+									<li> <i class="fa fa-phone" aria-hidden="true"></i>
+										<h6 class="text_white mb-2">Call Us 24/7</h6>
+										<span>+977{% for s in site %}{{s.phone}}{% endfor %}</span>
+									</li>
+									<li> <i class="far fa-envelope"></i>
+										<h6 class="text_white mb-2">Email Address</h6>
+										<span><a class="text-white"
+												href="mailto:hi@sajilorealestate.com">hi@sajilorealestate.com</a></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer_widget quick_link">
+								<div class="widget_head">
+									<h4 class="widget_title">Quick Links</h4>
+								</div>
+								<ul>
+									<li><a href="{% url 'core_app:about' %}">About Us</a></li>
+									<li><a href="{% url 'core_app:contact' %}">Contact Us</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-sm-6">
+							<div class="footer_widget newslatter">
+								<div class="widget_head">
+									<h4 class="widget_title">Developer Info</h4>
+								</div>
+
+								<h6 class="text_white">Developed and maintained by <a class="footerlink"
+										href="https://awebisam.com">Awebisam</a>
+								</h6>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Footer Section End -->
+
+			<!-- Bottom Footer Start -->
+			<div class="full_row py-4 bg_black">
+				<span class="copyright_text text-center text_white d-block">Copyright &copy; 2020 SajiloRE | All Right
+					Reserved</span>
+			</div>
+
+			<a href="#" id="scroll"><i class="fas fa-arrow-up"></i></a>
+			<!-- Find Part Satrt -->
+		</div>
+	</div>
+	<!-- Wrapper End -->
+	{% include "plugins/scripts.html" %}
+	{% if messages %}
+	<script>
+		$("#helloooo").delay(2500).slideUp(200, function () {
+			$(this).alert('close');
+		});
+	</script>
+	{% endif %}
+</body>
+
+</html>

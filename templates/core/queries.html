@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Your Queries
+{% endblock title %}
+{% block content %}
+
+<div class="container">
+
+    {% if queries %}
+    <ul class="list-group my-5 list-group-flush">
+        {% for q in queries %}
+        <li class="list-group-item">{{q.prop}}-{{q.message}}</li>
+
+        {% endfor %}
+    </ul>
+    {% else %}
+    <ul class="list-group my-5 list-group-flush">
+        <li class="text-danger list-group-item">You don't have any pending inquiries.</li>
+    </ul>
+    {% endif %}
+
+</div>
+
+
+
+
+{% endblock content %}

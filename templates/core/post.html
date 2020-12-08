@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% block title %}
+Post Property
+{% endblock title %}
+{% block content %}
+
+<!-- Banner Section Start -->
+<section class="full_row bg_img_5 py_80 overlay_1 page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_banner">
+                    <h3 class="title text_white d-table float-left">Submit Property</h3>
+                    <ul class="page_location float-right">
+                        <li><a href="{% url 'core_app:index' %}">Home</a>
+                        </li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </li>
+                        <li><span>Submit Property</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+{% include 'auth/alert.html' %}
+<!-- Submit Property Start -->
+<section id="submit_property" class="full_row py_80 bg_gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-10">
+                <form action="" enctype="multipart/form-data" method="post" class="submit_form">
+                    {% csrf_token %}
+                    <div class="basic_information">
+
+                        <h4 class="inner-title mb-4">Basic Information</h4>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <input hidden value={{user.id}} name="added_by" type="text">
+                                    <input name="title" required type="text" name="title" placeholder="Property Title"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <select id="status" onchange="rent()" required name="status"
+                                        class="selectpicker form-control">
+
+                                        <option selected value="Sale">Sale</option>
+                                        <option value="Rent">Rent</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <select required id="ptype" name="ptype" onchange="fx()"
+                                        class="selectpicker form-control">
+
+                                        <option selected value="House">House</option>
+                                        <option value="Room">Room/Flat</option>
+                                        <option value="Land">Land</option>
+                                    </select></div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <input required type="text" id="aree" name="area"
+                                        placeholder="Area (Bigha, Kattha, etc)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <input required type="number" id="price" name="price" placeholder="Price (Rs)"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <input id="rooms" required name="number_of_rooms" type="number"
+                                        placeholder="No. Of Rooms" class="form-control">
+                                </div>
+                                <script>
+                                    function fx() {
+                                        type = document.getElementById('ptype').value;
+                                        if (type == "Land") {
+                                            document.getElementById('rooms').disabled = true;
+                                            document.getElementById('rooms').placeholder = "N/A";
+                                            document.getElementById('rooms').value = "";
+                                            document.getElementById('aree').placeholder = "Area (Bigha, Kattha, etc)";
+
+                                            document.getElementById('checkk').style.display = "none";
+                                        } else if (type == "House") {
+                                            document.getElementById('rooms').disabled = false;
+                                            document.getElementById('rooms').placeholder = "No. Of Rooms";
+                                            document.getElementById('aree').placeholder = "Area (Bigha, Kattha, etc)";
+                                            document.getElementById('checkk').style.display = "block";
+                                        } else {
+                                            document.getElementById('rooms').disabled = false;
+                                            document.getElementById('rooms').placeholder = "No. Of Rooms";;
+                                            document.getElementById('aree').placeholder = "Area (eg. 12x12)";
+                                            document.getElementById('checkk').style.display = "block";
+                                        }
+                                    }
+
+                                    function rent() {
+                                        status = document.getElementById('status').value;
+                                        if (status == "Rent") {
+                                            document.getElementById('price').placeholder = "Rs. Per Month";
+                                        } else {
+                                            document.getElementById('price').placeholder = "Price (Rs)"
+                                        }
+                                    }
+                                </script>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="important_facts">
+                                    <label>Do you have any installment system for payment?</label>
+                                    <div class="radio_check">
+                                        <input type="checkbox" id="radio_1" class="hide" name="has_installment"
+                                            value="Yes">
+                                        <label for="radio_1"><span>No</span><span>Yes</span></label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="important_facts">
+                                    <label>Have any insurance of this property?</label>
+                                    <div class="radio_check">
+                                        <input type="checkbox" id="radio_2" class="hide" name="has_insurance"
+                                            value="Yes">
+                                        <label for="radio_2"><span>No</span><span>Yes</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">Please input the correct information of your property. Because
+                            it will effect on property search.</div>
+                    </div>
+                    <div class="description mt-5">
+                        <h4 class="inner-title mb-4">Description</h4>
+                        <div class="form-group">
+                            <textarea name="description" placeholder="Type Description..." class="form-control"
+                                rows="5"></textarea>
+                        </div>
+                        <div class="alert alert-warning">Need a proper description about the property. So that buyers
+                            can easily understand about the property.</div>
+                    </div>
+                    <div class="property_location mt-5">
+                        <h4 class="inner-title mb-4">Property Location</h4>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input name="address" type="text" placeholder="Property Adddress"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="checkk" class="check_feature mt-5">
+                        <h4 class="inner-title mb-4">check feature</h4>
+                        <div class="row">
+                            <ul class="check_submit">
+                                <li>
+                                    <input name="garden" id="feature_15" class="hide" type="checkbox">
+                                    <label for="feature_15">Garden</label></li>
+                                <li>
+                                    <input name="garage" id="feature_14" class="hide" type="checkbox">
+                                    <label for="feature_14">Garage</label></li>
+                                <li>
+                                    <input name="swimming_pool" id="feature_13" class="hide" type="checkbox">
+                                    <label for="feature_13">Swimming Pool</label></li>
+                                <li>
+                                    <input name="bathtub" id="feature_12" class="hide" type="checkbox">
+                                    <label for="feature_12">Bathtub</label></li>
+                                <li>
+                                    <input name="ac" id="feature_11" class="hide" type="checkbox">
+                                    <label for="feature_11">A.C</label></li>
+                                <li>
+                                    <input name="internet" id="feature_10" class="hide" type="checkbox">
+                                    <label for="feature_10">Internet</label></li>
+                                <li>
+                                    <input name="play_ground" id="feature_9" class="hide" type="checkbox">
+                                    <label for="feature_9">Play Ground</label></li>
+
+                            </ul>
+                        </div>
+                        <div class="alert alert-warning">Check the extra features and facility of the property, it will
+                            show with the property.</div>
+                    </div>
+                    <div class="upload_media mt-5">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="browse_submit">
+                                    <span>Add Photo</span>
+                                    <input name="photo" type="file" accept="image/*" id="fileupload-example-1"
+                                        onchange="loadFile(event)" class="hide" />
+                                    <label class="fileupload_label" for="fileupload-example-1">Drop your photos here or
+                                        Click</label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="property_thumbnails mt-5">
+                                    <div class="row">
+                                        <div class="thumbnails_box mb_30 col-lg-2 col-md-4 col-6">
+                                            <img id="output" style="" src="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="my-2 check_submit">
+                                <li>
+                                    <input name="paid" id="paid" class="hide" type="checkbox">
+                                    <label for="paid"><b>Featured?<sup>Paid</sup></b></label></li>
+                            </ul>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input name="phone" type="text" placeholder="Add your phone number."
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="video_upload">
+                                    <input name="video" type="url" placeholder="Add property video links or URL"
+                                        class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">Please uplaod the photo of the property and keep the photo
+                            in 1200x675 ratio.</div>
+                    </div>
+                    <div class="property_owner mt-5">
+                        <div class="browse_submit">
+                            <button name="submit" class="btn btn_primary">submit property</button>
+                            <p><span>note</span> : Your property will be under review for 24 hrs *</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+</script>
+<!-- Submit Property End -->
+{% endblock content %}

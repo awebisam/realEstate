@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Blogs
+{% endblock title %}
+{% block content %}
+
+
+<!-- Banner Section Start -->
+<section class="full_row bg_img_5 py_80 overlay_1 page-banner">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page_banner">
+					<h3 class="title text_white d-table float-left">{% if blogs %}Blog {% else %}No Blogs
+						Yet{% endif %}</h3>
+					<ul class="page_location float-right">
+						<li><a href="{% url 'core_app:index' %}">Home</a>
+						</li>
+						<li><i class="fa fa-angle-right" aria-hidden="true"></i>
+						</li>
+						<li><span> Blogs </span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Banner Section End -->
+
+<!-- Blog List Start -->
+{% if blogs %}
+<section class="full_row py_80 bg_gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row">
+
+					{% for b in blogs %}
+					<div class="col-md-6 col-12 col-lg-4">
+						<div class="news_item_1 bg_white mb_30 wow fadeInUp" data-wow-delay="100ms"
+							data-wow-duration="1000ms">
+							<div class="news_img"> <img src="{{b.image.url}}" alt="Image Not Found!"> <a
+									href="{% url 'blog:detail' slug=b.slug %}" class="news_eye"><i
+										class="far fa-eye"></i></a>
+							</div>
+							<div class="details p_20">
+								<h5 class="title mb-2"><a href="{% url 'blog:detail' slug=b.slug %}">{{b.title}}</a>
+								</h5>
+								<div class="post_info">Posted By {{b.author}} On {{b.created_on | date}}</div>
+								<p>{{b.body | truncatewords:5 | safe }}</p>
+								<a class="btn_link" href="{% url 'blog:detail' slug=b.slug %}">Read More</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						{% if blogs.has_other_pages %}
+
+						<div class="pagination_style1">
+							<nav aria-label="page navigation">
+								<ul class="pagination">
+									{% if blogs.has_previous %}
+									<li><a href="?page={{blogs.previous_page_number}}" aria-label="Previous"> <span
+												aria-hidden="true">Prev</span> </a> </li>
+									{% else %}
+									<li><a><span aria-hidden="true">Prev</span>
+										</a>
+									</li>
+									{% endif %}
+									{% for i in blogs.paginator.page_range %}
+									{% if blogs.number == i %}
+									<li>
+										<a>{{i}}</a>
+									</li>
+									{% else %}
+									<li>
+										<a href="?page={{i}}">{{i}}</a>
+									</li>
+									{% endif %}
+									{% endfor %}
+									{% if blogs.has_next %}
+									<li><a href="?page={{blogs.next_page_number}}" aria-label="Previous"> <span
+												aria-hidden="true">Next</span> </a> </li>
+									{% else %}
+									<li><a><span aria-hidden="true">Next</span>
+										</a>
+									</li>
+									{% endif %}
+								</ul>
+							</nav>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</section>
+{% else %}
+<section class="full_row py_80 bg_gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row">
+					<h3>Sorry, No blogs found.</h3>
+				</div>
+			</div>
+		</div>
+</section>
+{% endif %}
+
+{% endblock content %}

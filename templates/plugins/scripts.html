@@ -1,0 +1,62 @@
+{% load static %}
+
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+
+<script>
+    let loadFile = function (event) {
+        let image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        image.style.display = "inline-block";
+    };
+</script>
+
+<!--===============================================================================================-->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/greensock.js' %}"></script>
+<!-- LayerSlider script files -->
+<script src="{% static 'js/layerslider.transitions.js' %}"></script>
+<script src="{% static 'js/layerslider.kreaturamedia.jquery.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/popper-1.14.3.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-4.1.3.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/YouTubePopUp.jquery.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+<script src="{% static 'js/jquery.fancybox-media.js' %}"></script>
+<!--===============================================================================================-->
+<!-- Owl Carousel slide need-->
+<script src="{% static 'js/owl.js' %}"></script>
+<!--===============================================================================================-->
+<!-- Achievement Counting need-->
+<script src="{% static 'js/nsc.js' %}"></script>
+
+<script src="{% static 'js/mixitup.js' %}"></script>
+
+<script src="{% static 'js/wow.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/settings.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/jshashtable-2.1_src.js' %}"></script>
+<!--===============================================================================================-->
+{% comment %} <script src="{% static 'js/jquery.numberformatter-1.2.3.js' %}"></script> {% endcomment %}
+<!--===============================================================================================-->
+<script src="{% static 'js/tmpl.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/jquery.dependClass-0.1.js' %}"></script>
+<!--===============================================================================================-->
+{% comment %} <script src="{% static 'js/draggable-0.1.js' %}"></script> {% endcomment %}
+<!--===============================================================================================-->
+<script src="{% static 'js/jquery.slider.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/jquery.barrating.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/custom.js' %}"></script>

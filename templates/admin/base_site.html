@@ -1,0 +1,11 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+<h1 id="head">
+  <img src="{% static 'img/logo1.png' %}" alt="Sajilo Real Estate" height="50" width="120" class="brand_img">
+</h1>
+{% endblock %}
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}

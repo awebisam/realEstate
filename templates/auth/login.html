@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}
+Login
+{% endblock title %}
+{% block content %}
+<!-- Banner Section Start -->
+<section class="full_row bg_img_5 py_80 overlay_1 page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_banner">
+                    <h3 class="title text_white d-table float-left">Sign In</h3>
+                    <ul class="page_location float-right">
+                        <li><a href="{% url 'core_app:index' %}">Home</a>
+                        </li>
+                        <li><i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </li>
+                        <li><span>Sign In</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+{% include 'auth/alert.html' %}
+<!-- Sign In Account Start -->
+<section class="full_row py_100 bg_gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class=" bg_white sign_in_up" role="document">
+                    <div class="header bg_primary">
+                        <h4 class="inner-title text_white">Sign In Account</h4>
+                    </div>
+                    <div class="body">
+                        <p>Welcome to sajilo.</p>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input required type="username" name="username" class="form-control"
+                                    placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <input required type="password" name="password" class="form-control"
+                                    placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="signin" class="btn btn-block btn_primary_bg">Sign
+                                    In</button>
+                            </div>
+                            <div class="form-group">
+                                <a href={% provider_login_url "google" %} name="signin"
+                                    class="btn btn-block btn-primary">Login with
+                                    google</a>
+                            </div>
+                        </form>
+                        <p>or, <a class="text-success" href="{% url 'authentication:register' %}">Sign up</a> instead
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+</section>
+<!-- Sign In Account End -->
+{% endblock content %}
